@@ -116,9 +116,9 @@ void Question5() {
 
 void Question6() {
 
+	//IDEA: compare A and D, swap if needed. Compare b and c, swap if needed.
 	float A, B, C, D;
 
-	// Get input from the user
 	printf("Enter four real numbers:\n");
 	scanf("%f %f %f %f", &A, &B, &C, &D);
 
@@ -157,13 +157,13 @@ void Question6() {
 int main() {
 
 	//Question3 test
-	//Question3();
+	Question3();
 
 	//Question 4 test
-	//Question4();
+	Question4();
 
 	//Question 5 test
-	//Question5();
+	Question5();
 
 	//Question 6 test
 	Question6();
