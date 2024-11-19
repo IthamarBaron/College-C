@@ -24,17 +24,18 @@ void constrained_hanoi(int n, tower from, tower to)
 	if (n == 0) return;
 	if (other != B)/* to & from הם שני מגדלים סמוכים */
 	{
-		constrained_hanoi(n-1,from,other);
+		constrained_hanoi(n-1,from,other); 
 		printf("%C -> %C\n", 'A' + from, 'A' + to);
 		constrained_hanoi(n-1, other, to);
 	}
 	else /* to & from הם שני המגדלים שבקצוות */
 	{
-    (3)
-    (4)
-		printf("%C -> %C\n", 'A' + from, 'A' + other);
+	    	constrained_haoi(n-1,from,to);
+	    	printf("%C -> %C\n", 'A' + from, 'A' + other);
+		constrained_haoi(n-1,to, from);
 		printf("%C -> %C\n", 'A' + other, 'A' + to);
-		//(6)
+		constrained_haoi(n-1,from,to);
+
 	}
 }
 
