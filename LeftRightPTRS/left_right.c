@@ -1,4 +1,4 @@
-﻿#include <stdlib.h>
+#include <stdlib.h>
 #include <stdio.h>
 
 //----------------------------------------------------------------------------------------
@@ -45,23 +45,19 @@ int** fun3(const int** pLeft, const int** pRight)
 	{
 		count++;
 		leftPtr++;
-		printf("count %d\n", count);
 	}
 	int** newPtrArray = (int**)malloc(count*sizeof(int*));
-	if (newPtrArray = NULL)
+	if (newPtrArray == NULL)
 		return NULL;
 	int** pos = newPtrArray;
-	printf("New array allocation went well");
 	for (leftPtr = pLeft; *leftPtr != NULL; leftPtr++)
 	{
 		int* maxPtr = fun2(*leftPtr, *pright);
 		*pos = maxPtr;
-		printf("IM ALIVE 1\n");
 		*(pright++);
-		printf("IM ALIVE 2\n");
 		pos++;
-		printf("IM ALIVE 3\n");
 	}
+	return newPtrArray;
 }
 
 //----------------------------------------------------------------------------------------
