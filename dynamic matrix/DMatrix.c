@@ -7,13 +7,15 @@
 matrixPtr InnitMatrix(int rows, int cols)
 {
 	matrixPtr DMat = (matrixPtr)malloc(sizeof(matrix)); //struct allocation
-	if (DMat== NULL)return NULL;
+	if (DMat == NULL)return NULL;
 	DMat->cols = cols;
 	DMat->rows = rows;
-	DMat->mat = (int**)malloc(rows * sizeof(matrix_type*));//rows allocation
+	DMat->mat = (matrix_type**)malloc(rows * sizeof(matrix_type*));//rows allocation
 	if (DMat->mat == NULL)return NULL;
-	DMat->mat[0] = (int*)malloc((cols * rows) * sizeof(matrix_type));//items allocation
-	for (size_t i = 1; i <= cols-1; i++)
+	DMat->mat[0] = (matrix_type*)malloc((cols * rows) * sizeof(matrix_type));//items allocation
+
+	int loopOver = cols >= rows ? cols : rows;
+	for (size_t i = 1; i <= loopOver - 1; i++)
 		DMat->mat[i] = DMat->mat[i - 1] + cols;
 	return DMat;
 }
