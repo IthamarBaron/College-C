@@ -7,10 +7,10 @@
 #define WIDTH 20
 #define ALIVE 'H'
 #define DEAD ' '
-typedef enum {TRUE,FALSE} bool;
+typedef enum { TRUE, FALSE } bool;
 
 
-void PrintGen(char mat[HIGHT][WIDTH], int gen )
+void PrintGen(char mat[HIGHT][WIDTH], int gen)
 {
 	printf("Generation [%d]\n", gen);
 	for (size_t i = 0; i < WIDTH; i++)
@@ -24,7 +24,7 @@ void PrintGen(char mat[HIGHT][WIDTH], int gen )
 		{
 			printf("%c", mat[i][j]);
 		}
-		if (i<HIGHT-2)
+		if (i < HIGHT - 2)
 			printf("\n");
 
 	}
@@ -35,13 +35,13 @@ void PrintGen(char mat[HIGHT][WIDTH], int gen )
 }
 
 
-int CountAliveNeighbours(char mat[HIGHT][WIDTH], int i, int j ,int x[],int y[])
+int CountAliveNeighbours(char mat[HIGHT][WIDTH], int i, int j, int x[], int y[])
 {
 	int counter = 0;
 	//count neigbhours
 	for (int k = 0; k < 8; k++)
 	{
-		if (mat[i+(x[k])][j+(y[k])] == ALIVE)
+		if (mat[i + (x[k])][j + (y[k])] == ALIVE)
 		{
 			counter++;
 		}
@@ -66,18 +66,19 @@ void NextGen(char mat[HIGHT][WIDTH], int x[], int y[])
 	{
 		for (int j = 0; j < WIDTH; j++)
 		{
-			if (CountAliveNeighbours(PrevMat, i, j, x, y) != 2)//Unchanged if has 2 neighbours
+			int aliveNeighbours = CountAliveNeighbours(PrevMat, i, j, x, y);
+			if (aliveNeighbours != 2)//Unchanged if has 2 neighbours
 			{
 				if (PrevMat[i][j] == ALIVE)
 				{
-					if (CountAliveNeighbours(PrevMat, i, j, x, y) <= 1) //Dies if has less then 1 neighbour
+					if (aliveNeighbours <= 1) //Dies if has less then 1 neighbour
 						mat[i][j] = DEAD;
-					else if (CountAliveNeighbours(PrevMat, i, j, x, y) >= 4)// Dies if has more then 4 neighbours
+					else if (aliveNeighbours >= 4)// Dies if has more then 4 neighbours
 						mat[i][j] = DEAD;
 				}
 				else
 				{
-					if (CountAliveNeighbours(PrevMat, i, j, x, y) == 3) //Born if has 3 neighbours
+					if (aliveNeighbours == 3) //Born if has 3 neighbours
 						mat[i][j] = ALIVE;
 				}
 			}
@@ -114,7 +115,7 @@ int main()
 
 	for (size_t i = 0; i < 500; i++)
 	{
-		NextGen(matrix,vecI,vecJ);
+		NextGen(matrix, vecI, vecJ);
 		for (int j = 0; j < 80000000; j++)
 		{
 		}
@@ -124,5 +125,4 @@ int main()
 
 	}
 }
-
 
