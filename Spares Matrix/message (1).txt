@@ -45,13 +45,13 @@ void printRowsAndColsCount(sparesMatNode* mat) {
 	int rowCount = 0;
 	int colCount = 0;
 	sMatPtr headCol = mat;
-	sMatPtr headRow= mat;
-	while (headCol->nextCol!=mat)
+	sMatPtr headRow = mat;
+	while (headCol->nextCol != mat)
 	{
 		colCount++;
 		headCol = headCol->nextCol;
 	}
-	while (headRow->nextRow !=mat)
+	while (headRow->nextRow != mat)
 	{
 		rowCount++;
 		headRow = headRow->nextRow;
@@ -76,7 +76,7 @@ void InsertToMatrix(sparesMatNode* mat, int row, int col, TYPE_ITEM x)
 	}
 	if (rowCounter < row)//we need new rows
 	{
-		for (int i = rowCounter+1; i < row+1; i++)
+		for (int i = rowCounter + 1; i < row + 1; i++)
 		{
 			sMatPtr newNode = Init(i, 0, -1);
 			newNode->nextRow = rowHead->nextRow;
@@ -86,14 +86,14 @@ void InsertToMatrix(sparesMatNode* mat, int row, int col, TYPE_ITEM x)
 	}
 	sMatPtr colHead = mat;
 	int ColCounter = 0;
-	while (colHead->nextCol!=mat)
+	while (colHead->nextCol != mat)
 	{
 		ColCounter++;
 		colHead = colHead->nextCol;
 	}
-	if (ColCounter<col)
+	if (ColCounter < col)
 	{
-		for (int i = ColCounter+1; i < col+1; i++)
+		for (int i = ColCounter + 1; i < col + 1; i++)
 		{
 			sMatPtr newNode = Init(0, i, -1);
 			newNode->nextCol = colHead->nextCol;
@@ -121,7 +121,7 @@ void InsertToMatrix(sparesMatNode* mat, int row, int col, TYPE_ITEM x)
 	sMatPtr startCol = insertCol;
 	if (startCol->nextRow != startCol)
 	{
-		while (insertCol->nextRow == startCol && insertCol->nextRow->row != row );
+		while (insertCol->nextRow == startCol && insertCol->nextRow->row != row);
 		{
 			insertCol = insertCol->nextRow;
 		}
@@ -148,7 +148,7 @@ void InsertToMatrix(sparesMatNode* mat, int row, int col, TYPE_ITEM x)
 void InsertAfter(sMatPtr rowBefore, sMatPtr colBefore, TYPE_ITEM X)
 {
 	sMatPtr newNode = Init(rowBefore->row, colBefore->col, X);
-	
+
 	sMatPtr nextAfterRows = rowBefore->nextCol;
 	if (nextAfterRows->col != 0)
 		nextAfterRows = nextAfterRows->nextCol;
@@ -165,7 +165,36 @@ void InsertAfter(sMatPtr rowBefore, sMatPtr colBefore, TYPE_ITEM X)
 
 }
 
+TYPE_ITEM DeleteAfter(sMatPtr rowBefore, sMatPtr colBefore)
+{
+	if (rowBefore != NULL && colBefore != NULL)
+	{
+		rowBefore->nextCol = rowBefore->nextCol->nextCol;
+		sMatPtr* toRemove = colBefore->nextRow;
+		colBefore->nextRow = colBefore->nextRow->nextRow;
+		TYPE_ITEM value = (*toRemove)->info;
+		free(*toRemove);
+		return value;
+	}
+	return FALSE;//0 - values in spares matrix will never be 0 
+}
 
+
+sMatPtr FindAbove(sMatPtr mat, int row, int col)
+{
+	if (IsEmpty(mat))
+		return NULL;
+	sMatPtr headRows = mat;
+	for (size_t i = 0; i < col; i++)
+		headRows->nextCol = headRows->nextCol;
+	sMatPtr headColl = headRows;
+	while (headRows->nextRow != headRows)
+	{
+		//FINISH HOME
+	}
+
+
+}
 
 void printSparesMatrix(sparesMatNode* mat) {
 	sparesMatNode* row = mat->nextRow;
@@ -176,7 +205,7 @@ void printSparesMatrix(sparesMatNode* mat) {
 
 		// Traverse through each column until we get back to the row head
 		while (col != row) {
-			printf("Value at (%d, %d): %d\n", col->row-1, col->col-1, col->info);
+			printf("Value at (%d, %d): %d\n", col->row - 1, col->col - 1, col->info);
 			col = col->nextCol;
 		}
 
@@ -193,11 +222,11 @@ int main()
 
 
 
-	InsertToMatrix(matrix,0,1, 1);
-	InsertToMatrix(matrix,1, 0, 2);
+	InsertToMatrix(matrix, 0, 1, 1);
+	InsertToMatrix(matrix, 1, 0, 2);
 	printf("first param mat at[%d][%d]\nsecond param mat at[%d][%d]\n",
-	matrix->nextRow->nextRow->nextCol->row, matrix->nextRow->nextRow->nextCol->col, matrix->nextCol->nextCol->nextRow->row, matrix->nextCol->nextCol->nextRow->col);
-	InsertAfter(matrix->nextRow->nextRow->nextCol, matrix->nextCol->nextCol->nextRow,3);
+		matrix->nextRow->nextRow->nextCol->row, matrix->nextRow->nextRow->nextCol->col, matrix->nextCol->nextCol->nextRow->row, matrix->nextCol->nextCol->nextRow->col);
+	InsertAfter(matrix->nextRow->nextRow->nextCol, matrix->nextCol->nextCol->nextRow, 3);
 
 
 
