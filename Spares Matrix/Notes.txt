@@ -1,0 +1,2 @@
+Code implementation is not exactly the same as asked for since i did the question in the wrong order.
+However, the data structure is exactly the same as shown in the image
