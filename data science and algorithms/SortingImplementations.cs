@@ -162,6 +162,18 @@ class Program
         }
     }//O(N^2)
 
+    public static int BinarySearch(int[] arr, int low, int high, int target)
+    {
+        if (low >= high)
+            return -1;
+        int median = (low + high) / 2;
+        if (arr[median] == target)
+            return median;
+        if (target > arr[median])
+            return BinarySearch(arr, median+1, high, target);
+        else
+            return BinarySearch(arr,low,median, target);
+    }//O(N*LOG(N))
 
 
     static void Swap(int[] arr, int _index0, int _index1)
