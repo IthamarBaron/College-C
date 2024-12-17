@@ -1,0 +1,50 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct
+{
+	char name[20];
+	int grades[3];
+} Student, * pStudent;
+
+
+int compare(const Student x, const Student y)
+{
+	return (x.grades[0] + x.grades[1] + x.grades[2]) / 3 - (y.grades[0] + y.grades[1] + y.grades[2]) / 3;
+}
+
+void createFile(Student* stArr, FILE** fp, int length)
+{
+	qsort(stArr, length, sizeof(Student), compare);
+	if (fp != NULL)
+		fwrite(stArr, sizeof(Student), length, *fp);
+
+}
+
+char* searchName(FILE* fp, double avgGrade,int length)
+{
+	fseek(fp, 0, SEEK_SET);
+	Student* temp = (pStudent)malloc(sizeof(Student));
+	for (size_t i = 0; i < length; i++)
+	{
+		fread(temp, sizeof(Student), 1, fp);
+		printf("name: %s\n", temp->name);
+	}
+}
+
+int main()
+{
+	Student ar[] = {
+	{"shira", {60, 40, 10}},
+	{"ziv", {90, 50, 100}},
+	{"eden", {80, 90, 60}},
+	{"noam", {99, 70, 80}},
+	{"ori", {10, 50, 100}}
+		};
+	
+
+	FILE* fp = fopen("students.txt", "w+t");
+	createFile(ar, &fp, 5);
+	searchName(fp, 1, 5);
+	return 0;
+}
