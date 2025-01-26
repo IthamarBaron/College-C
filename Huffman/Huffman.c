@@ -408,7 +408,7 @@ int main(int argc, char* argv[])
 {
     if (argc != 3)
     {
-        printf("Invalid number of parameters!\nUsage: Huffman <option> <path>\n");
+        printf("Invalid number of parameters!\nUsage: Huffman <path> <option>\n");
         return 1;
     }
 
